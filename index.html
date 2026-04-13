@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Aniversário - 26/04</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --rosa-claro: #fff0f5;
+            --rosa-detalhe: #ffb6c1;
+            --rosa-texto: #db7093;
+            --branco: #ffffff;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--rosa-claro);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #4a4a4a;
+        }
+
+        .card {
+            background: var(--branco);
+            width: 90%;
+            max-width: 450px;
+            padding: 35px 25px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(219, 112, 147, 0.15);
+            text-align: center;
+            border: 1px solid var(--rosa-detalhe);
+        }
+
+        h1 { font-family: 'Dancing Script', cursive; color: var(--rosa-texto); font-size: 2.8rem; margin: 10px 0; }
+
+        .info-container {
+            background: #fffafa;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border-left: 4px solid var(--rosa-detalhe);
+            text-align: left;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 14px;
+            margin: 8px 0;
+            border: 1px solid #eee;
+            border-radius: 12px;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        button {
+            flex: 1;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            color: white;
+        }
+
+        .btn-sim { background: var(--rosa-texto); }
+        .btn-nao { background: #bbb; }
+
+        button:hover { filter: brightness(1.1); transform: translateY(-2px); }
+        button:disabled { opacity: 0.6; cursor: not-allowed; }
+
+        #mensagem-final {
+            display: none;
+            padding: 30px 10px;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div id="conteudo-convite">
+            <h1>Meu Aniversário</h1>
+            <p>Prepare o coração (e o apetite)! 🍕</p>
+
+            <div class="info-container">
+                <div style="margin-bottom: 10px;">
+                    <b style="color: var(--rosa-texto); font-size: 0.8rem; text-transform: uppercase;">Quando?</b><br>
+                    <span>26 de Abril de 2026 às 19:30</span>
+                </div>
+                <div>
+                    <b style="color: var(--rosa-texto); font-size: 0.8rem; text-transform: uppercase;">Onde?</b><br>
+                    <span>Divina Grill & Pizza - Gama/DF</span>
+                </div>
+            </div>
+
+            <div style="margin-top: 25px;">
+                <h3 style="color: var(--rosa-texto); margin-bottom: 15px;">Confirme sua Presença</h3>
+                <input type="text" id="nome" placeholder="Digite seu nome completo">
+                
+                <select id="qtd">
+                    <option value="1">Vou sozinho(a)</option>
+                    <option value="2">Vou com acompanhante (2 pessoas)</option>
+                    <option value="3+">Família (3+ pessoas)</option>
+                </select>
+
+                <div class="btn-group">
+                    <button id="btnSim" class="btn-sim" onclick="enviarDados('Sim')">Vou com certeza!</button>
+                    <button id="btnNao" class="btn-nao" onclick="enviarDados('Não')">Não poderei ir</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mensagem-final">
+            <h2 style="color: var(--rosa-texto); font-family: 'Dancing Script', cursive; font-size: 2.5rem;">Obrigado! ❤️</h2>
+            <p id="msg-texto">Sua confirmação foi enviada com sucesso.</p>
+            <div style="font-size: 2rem; margin-top: 15px;">🎂 ✨ 🥳</div>
+        </div>
+    </div>
+
+    <script>
+        function enviarDados(status) {
+            const nome = document.getElementById('nome').value;
+            const qtd = document.getElementById('qtd').value;
+            const btnSim = document.getElementById('btnSim');
+            const btnNao = document.getElementById('btnNao');
+
+            if (!nome) {
+                alert("Por favor, digite seu nome antes de confirmar.");
+                return;
+            }
+
+            // Desabilita botões para evitar cliques duplos
+            btnSim.disabled = true;
+            btnNao.disabled = true;
+            btnSim.innerText = "Enviando...";
+
+            const dados = {
+                Nome: nome,
+                Presenca: status,
+                Convidados: status === 'Sim' ? qtd : '0',
+                _subject: `Nova Resposta: ${nome} (${status})` // Assunto do e-mail que você vai receber
+            };
+
+            fetch("https://formspree.io/f/mlgaewpk", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify(dados)
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Esconde o formulário e mostra o agradecimento
+                    document.getElementById('conteudo-convite').style.display = 'none';
+                    document.getElementById('mensagem-final').style.display = 'block';
+                    
+                    if(status === 'Não') {
+                        document.getElementById('msg-texto').innerText = "Que pena que não poderá vir! Sentiremos sua falta.";
+                    }
+                } else {
+                    alert("Ops! Ocorreu um erro ao enviar. Tente novamente.");
+                    btnSim.disabled = false;
+                    btnNao.disabled = false;
+                    btnSim.innerText = "Vou com certeza!";
+                }
+            })
+            .catch(error => {
+                alert("Erro de conexão. Verifique sua internet.");
+                btnSim.disabled = false;
+                btnNao.disabled = false;
+            });
+        }
+    </script>
+</body>
+</html>

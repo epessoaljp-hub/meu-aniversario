@@ -7,9 +7,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --rosa-claro: #fff0f5;
-            --rosa-detalhe: #ffb6c1;
-            --rosa-texto: #db7093;
+            --rosa-claro: #fff0f5; /* Lavender Blush */
+            --rosa-detalhe: #ffb6c1; /* Light Pink */
+            --rosa-texto: #db7093; /* Pale Violet Red */
             --branco: #ffffff;
         }
 
@@ -22,8 +22,51 @@
             align-items: center;
             min-height: 100vh;
             color: #4a4a4a;
+            position: relative;
+            overflow: hidden; /* Previne scroll se os balões flutuarem muito */
         }
 
+        /* --- Estilos para os Balões Minimalistas --- */
+        .balao {
+            position: absolute;
+            z-index: 1; /* Mantém os balões acima do fundo, atrás do card */
+            opacity: 0.8; /* Levemente transparente */
+            pointer-events: none; /* Não atrapalha cliques no card */
+            animation: flutuar 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes flutuar {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(3deg); }
+            100% { transform: translateY(0px) rotate(-2deg); }
+        }
+
+        /* Posicionamento dos Balões (Option 1: Minimalist) */
+        .balao-rosa-topo {
+            width: 120px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 1s;
+        }
+        .balao-ouro-topo {
+            width: 100px;
+            top: 15%;
+            left: 15%;
+        }
+
+        .balao-rosa-baixo {
+            width: 100px;
+            bottom: 10%;
+            right: 15%;
+            animation-delay: 0.5s;
+        }
+        .balao-ouro-baixo {
+            width: 90px;
+            bottom: 15%;
+            right: 10%;
+        }
+
+        /* --- Estilo do Card (Preservado) --- */
         .card {
             background: var(--branco);
             width: 90%;
@@ -33,9 +76,20 @@
             box-shadow: 0 15px 35px rgba(219, 112, 147, 0.15);
             text-align: center;
             border: 1px solid var(--rosa-detalhe);
+            position: relative;
+            z-index: 10; /* Card acima de tudo */
         }
 
-        h1 { font-family: 'Dancing Script', cursive; color: var(--rosa-texto); font-size: 2.8rem; margin: 10px 0; }
+        /* Enfeites de Aniversário (Preservados do original) */
+        .card::before { content: '🎈'; position: absolute; top: -15px; left: 20px; font-size: 2rem; }
+        .card::after { content: '✨'; position: absolute; top: -15px; right: 20px; font-size: 2rem; }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            color: var(--rosa-texto);
+            font-size: 2.8rem;
+            margin: 10px 0;
+        }
 
         .info-container {
             background: #fffafa;
@@ -43,147 +97,66 @@
             border-radius: 15px;
             margin: 20px 0;
             border-left: 4px solid var(--rosa-detalhe);
-            text-align: left;
         }
 
-        input, select {
-            width: 100%;
-            padding: 14px;
-            margin: 8px 0;
-            border: 1px solid #eee;
-            border-radius: 12px;
-            box-sizing: border-box;
-            font-family: inherit;
-        }
+        .info-item { margin-bottom: 15px; }
+        .info-item b { display: block; color: var(--rosa-texto); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
+        .info-item span { font-size: 1.1rem; font-weight: 500; }
+        .map-link { display: inline-block; margin-top: 8px; color: #5d9cec; text-decoration: none; font-size: 0.85rem; font-weight: 600; }
 
-        .btn-group {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        button {
-            flex: 1;
-            border: none;
-            padding: 16px;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s;
-            color: white;
-        }
-
-        .btn-sim { background: var(--rosa-texto); }
-        .btn-nao { background: #bbb; }
-
+        .form-section { margin-top: 25px; }
+        input, select { width: 100%; padding: 14px; margin: 8px 0; border: 1px solid #eee; border-radius: 12px; background: #fdfdfd; font-family: inherit; }
+        button { background: var(--rosa-texto); color: white; border: none; padding: 16px; width: 100%; border-radius: 12px; font-size: 1rem; font-weight: 600; cursor: pointer; margin-top: 15px; transition: 0.3s; }
         button:hover { filter: brightness(1.1); transform: translateY(-2px); }
-        button:disabled { opacity: 0.6; cursor: not-allowed; }
-
-        #mensagem-final {
-            display: none;
-            padding: 30px 10px;
-            animation: fadeIn 0.5s ease-in;
-        }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .emoji-footer { margin-top: 20px; font-size: 1.2rem; opacity: 0.7; }
     </style>
 </head>
 <body>
 
+    <img src="balao-rosa.png" alt="Balão Rosa Metálico" class="balao balao-rosa-topo">
+    <img src="balao-ouro.png" alt="Balão Ouro Rosa Metálico" class="balao balao-ouro-topo">
+    
+    <img src="balao-rosa.png" alt="Balão Rosa Metálico Baixo" class="balao balao-rosa-baixo">
+    <img src="balao-ouro.png" alt="Balão Ouro Rosa Metálico Baixo" class="balao balao-ouro-baixo">
     <div class="card">
-        <div id="conteudo-convite">
-            <h1>Meu Aniversário</h1>
-            <p>Prepare o coração (e o apetite)! 🍕</p>
+        <h1>Meu Aniversário</h1>
+        <p>Prepare o coração (e o apetite)! 🍕</p>
 
-            <div class="info-container">
-                <div style="margin-bottom: 10px;">
-                    <b style="color: var(--rosa-texto); font-size: 0.8rem; text-transform: uppercase;">Quando?</b><br>
-                    <span>26 de Abril de 2026 às 19:30</span>
-                </div>
-                <div>
-                    <b style="color: var(--rosa-texto); font-size: 0.8rem; text-transform: uppercase;">Onde?</b><br>
-                    <span>Divina Grill & Pizza - Gama/DF</span>
-                </div>
+        <div class="info-container">
+            <div class="info-item">
+                <b>Quando será?</b>
+                <span>26 de Abril de 2026 às 19:30</span>
             </div>
-
-            <div style="margin-top: 25px;">
-                <h3 style="color: var(--rosa-texto); margin-bottom: 15px;">Confirme sua Presença</h3>
-                <input type="text" id="nome" placeholder="Digite seu nome completo">
-                
-                <select id="qtd">
-                    <option value="1">Vou sozinho(a)</option>
-                    <option value="2">Vou com acompanhante (2 pessoas)</option>
-                    <option value="3+">Família (3+ pessoas)</option>
-                </select>
-
-                <div class="btn-group">
-                    <button id="btnSim" class="btn-sim" onclick="enviarDados('Sim')">Vou com certeza!</button>
-                    <button id="btnNao" class="btn-nao" onclick="enviarDados('Não')">Não poderei ir</button>
-                </div>
+            <div class="info-item">
+                <b>Onde?</b>
+                <span>Divina Grill & Pizza</span>
+                <p style="font-size: 0.8rem; margin: 5px 0;">St. Leste Q 22 - Gama, Brasília - DF</p>
+                <a href="https://maps.app.goo.gl/hVPotUejDAKfULtcA" target="_blank" class="map-link">📍 Abrir no Google Maps</a>
             </div>
         </div>
 
-        <div id="mensagem-final">
-            <h2 style="color: var(--rosa-texto); font-family: 'Dancing Script', cursive; font-size: 2.5rem;">Obrigado! ❤️</h2>
-            <p id="msg-texto">Sua confirmação foi enviada com sucesso.</p>
-            <div style="font-size: 2rem; margin-top: 15px;">🎂 ✨ 🥳</div>
+        <div class="form-section">
+            <h3 style="color: var(--rosa-texto); margin-bottom: 15px;">Confirme sua Presença</h3>
+            <input type="text" id="nome" placeholder="Seu nome">
+            <select id="qtd">
+                <option value="1 pessoa">Vou sozinho(a)</option>
+                <option value="2 pessoas">Vou com acompanhante (2 pessoas)</option>
+                <option value="3+ pessoas">Família (3+ pessoas)</option>
+            </select>
+            <button onclick="enviarConvite()">Confirmar no WhatsApp</button>
         </div>
+
+        <div class="emoji-footer">🎂 🥳 🎁</div>
     </div>
 
     <script>
-        function enviarDados(status) {
+        function enviarConvite() {
+            const seuNumero = "5561992276709"; 
             const nome = document.getElementById('nome').value;
             const qtd = document.getElementById('qtd').value;
-            const btnSim = document.getElementById('btnSim');
-            const btnNao = document.getElementById('btnNao');
-
-            if (!nome) {
-                alert("Por favor, digite seu nome antes de confirmar.");
-                return;
-            }
-
-            // Desabilita botões para evitar cliques duplos
-            btnSim.disabled = true;
-            btnNao.disabled = true;
-            btnSim.innerText = "Enviando...";
-
-            const dados = {
-                Nome: nome,
-                Presenca: status,
-                Convidados: status === 'Sim' ? qtd : '0',
-                _subject: `Nova Resposta: ${nome} (${status})` // Assunto do e-mail que você vai receber
-            };
-
-            fetch("https://formspree.io/f/mlgaewpk", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json"
-                },
-                body: JSON.stringify(dados)
-            })
-            .then(response => {
-                if (response.ok) {
-                    // Esconde o formulário e mostra o agradecimento
-                    document.getElementById('conteudo-convite').style.display = 'none';
-                    document.getElementById('mensagem-final').style.display = 'block';
-                    
-                    if(status === 'Não') {
-                        document.getElementById('msg-texto').innerText = "Que pena que não poderá vir! Sentiremos sua falta.";
-                    }
-                } else {
-                    alert("Ops! Ocorreu um erro ao enviar. Tente novamente.");
-                    btnSim.disabled = false;
-                    btnNao.disabled = false;
-                    btnSim.innerText = "Vou com certeza!";
-                }
-            })
-            .catch(error => {
-                alert("Erro de conexão. Verifique sua internet.");
-                btnSim.disabled = false;
-                btnNao.disabled = false;
-            });
+            if (!nome) { alert("Por favor, digite seu nome antes de confirmar."); return; }
+            const texto = `Oi! Estou confirmando minha presença no seu aniversário no Divina Grill!%0A%0A*Nome:* ${nome}%0A*Quantidade:* ${qtd}`;
+            window.open(`https://wa.me/${seuNumero}?text=${texto}`, '_blank');
         }
     </script>
 </body>

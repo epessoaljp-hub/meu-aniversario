@@ -7,9 +7,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --rosa-claro: #fff0f5; /* Lavender Blush */
-            --rosa-detalhe: #ffb6c1; /* Light Pink */
-            --rosa-texto: #db7093; /* Pale Violet Red */
+            --rosa-claro: #fff0f5;
+            --rosa-detalhe: #ffb6c1;
+            --rosa-texto: #db7093;
             --branco: #ffffff;
         }
 
@@ -23,64 +23,36 @@
             min-height: 100vh;
             color: #4a4a4a;
             position: relative;
-            overflow: hidden; /* Importante para os balões sumirem no topo */
+            overflow: hidden;
         }
 
-        /* --- Estilos para os Balões Subindo --- */
+        /* --- Animação dos Balões Subindo --- */
         .balao {
             position: absolute;
-            z-index: 1; /* Atrás do card */
-            opacity: 0.7; /* Levemente transparente */
-            pointer-events: none; /* Não atrapalha cliques */
-            width: 80px; /* Tamanho padrão, ajuste se necessário */
+            z-index: 1;
+            opacity: 0.7;
+            pointer-events: none;
+            width: 80px;
             height: auto;
-            
-            /* Define a animação: nome, duração padrão, tipo linear, repetição infinita */
             animation: subir 15s linear infinite;
-            
-            /* Começa abaixo da tela */
             bottom: -200px; 
         }
 
-        /* Define a animação de subir */
         @keyframes subir {
-            0% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 0; /* Começa invisível */
-            }
-            10% {
-                opacity: 0.7; /* Fica visível */
-            }
-            90% {
-                opacity: 0.7; /* Começa a sumir no final */
-            }
-            100% {
-                /* Sobe até passar o topo da tela */
-                transform: translateY(-130vh) rotate(15deg);
-                opacity: 0; /* Termina invisível */
-            }
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { transform: translateY(-130vh) rotate(15deg); opacity: 0; }
         }
 
-        /* --- Variação para cada Balão (Option 1: Minimalist/Clean) --- */
-        /* Misturando posições horizontais, tamanhos e atrasos */
+        /* Distribuição dos Balões na tela */
+        .balao-21-1 { left: 5%; animation-delay: 0s; width: 90px; }
+        .balao-21-2 { left: 25%; animation-delay: 6s; width: 70px; }
+        .balao-rosa-1 { left: 45%; animation-delay: 4s; width: 80px; }
+        .balao-rosa-2 { left: 85%; animation-delay: 10s; width: 95px; }
+        .balao-ouro-1 { left: 65%; animation-delay: 2s; width: 75px; }
 
-        /* Tipo 21.png (3 balões) */
-        .balao-21-1 { left: 10%; animation-delay: 0s; width: 90px; }
-        .balao-21-2 { left: 30%; animation-delay: 6s; width: 70px; animation-duration: 18s; }
-        .balao-21-3 { left: 55%; animation-delay: 12s; width: 85px; animation-duration: 12s; }
-
-        /* Tipo Rosa Metálico (3 balões) */
-        .balao-rosa-1 { left: 20%; animation-delay: 4s; width: 80px; }
-        .balao-rosa-2 { left: 45%; animation-delay: 10s; width: 95px; animation-duration: 14s; }
-        .balao-rosa-3 { left: 70%; animation-delay: 2s; width: 75px; animation-duration: 16s; }
-
-        /* Tipo Ouro Rosa Metálico (3 balões) */
-        .balao-ouro-1 { left: 35%; animation-delay: 8s; width: 85px; }
-        .balao-ouro-2 { left: 60%; animation-delay: 1s; width: 70px; animation-duration: 20s; }
-        .balao-ouro-3 { left: 85%; animation-delay: 14s; width: 65px; }
-
-
-        /* --- Estilo do Card (Preservado) --- */
+        /* --- Estilo do Card --- */
         .card {
             background: var(--branco);
             width: 90%;
@@ -91,19 +63,10 @@
             text-align: center;
             border: 1px solid var(--rosa-detalhe);
             position: relative;
-            z-index: 10; /* Card acima de tudo */
+            z-index: 10;
         }
 
-        /* Enfeites de Aniversário (Preservados do original) */
-        .card::before { content: '🎈'; position: absolute; top: -15px; left: 20px; font-size: 2rem; }
-        .card::after { content: '✨'; position: absolute; top: -15px; right: 20px; font-size: 2rem; }
-
-        h1 {
-            font-family: 'Dancing Script', cursive;
-            color: var(--rosa-texto);
-            font-size: 2.8rem;
-            margin: 10px 0;
-        }
+        h1 { font-family: 'Dancing Script', cursive; color: var(--rosa-texto); font-size: 2.8rem; margin: 10px 0; }
 
         .info-container {
             background: #fffafa;
@@ -111,36 +74,7 @@
             border-radius: 15px;
             margin: 20px 0;
             border-left: 4px solid var(--rosa-detalhe);
-        }
-
-        .info-item {
-            margin-bottom: 15px;
-        }
-
-        .info-item b {
-            display: block;
-            color: var(--rosa-texto);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .info-item span {
-            font-size: 1.1rem;
-            font-weight: 500;
-        }
-
-        .map-link {
-            display: inline-block;
-            margin-top: 8px;
-            color: #5d9cec;
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .form-section {
-            margin-top: 25px;
+            text-align: left;
         }
 
         input, select {
@@ -149,99 +83,125 @@
             margin: 8px 0;
             border: 1px solid #eee;
             border-radius: 12px;
-            background: #fdfdfd;
+            box-sizing: border-box;
             font-family: inherit;
         }
 
+        .btn-group { display: flex; gap: 10px; margin-top: 15px; }
+
         button {
-            background: var(--rosa-texto);
-            color: white;
+            flex: 1;
             border: none;
             padding: 16px;
-            width: 100%;
             border-radius: 12px;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            margin-top: 15px;
             transition: 0.3s;
+            color: white;
         }
 
-        button:hover {
-            filter: brightness(1.1);
-            transform: translateY(-2px);
-        }
+        .btn-sim { background: var(--rosa-texto); }
+        .btn-nao { background: #bbb; }
+        button:disabled { opacity: 0.5; cursor: not-allowed; }
 
-        .emoji-footer {
-            margin-top: 20px;
-            font-size: 1.2rem;
-            opacity: 0.7;
-        }
+        #mensagem-final { display: none; padding: 30px 10px; }
     </style>
 </head>
 <body>
 
-    <img src="21.png" alt="Balão 21 Original" class="balao balao-21-1">
-    <img src="21.png" alt="Balão 21 Original" class="balao balao-21-2">
-    <img src="21.png" alt="Balão 21 Original" class="balao balao-21-3">
-
-    <img src="balao-rosa.png" alt="Balão Rosa Metálico" class="balao balao-rosa-1">
-    <img src="balao-rosa.png" alt="Balão Rosa Metálico" class="balao balao-rosa-2">
-    <img src="balao-rosa.png" alt="Balão Rosa Metálico" class="balao balao-rosa-3">
-
-    <img src="balao-ouro.png" alt="Balão Ouro Rosa Metálico" class="balao balao-ouro-1">
-    <img src="balao-ouro.png" alt="Balão Ouro Rosa Metálico" class="balao balao-ouro-2">
-    <img src="balao-ouro.png" alt="Balão Ouro Rosa Metálico" class="balao balao-ouro-3">
+    <img src="21.png" class="balao balao-21-1">
+    <img src="21.png" class="balao balao-21-2">
+    <img src="balao-rosa.png" class="balao balao-rosa-1">
+    <img src="balao-rosa.png" class="balao balao-rosa-2">
+    <img src="balao-ouro.png" class="balao balao-ouro-1">
 
     <div class="card">
-        <h1>Meu Aniversário</h1>
-        <p>Prepare o coração (e o apetite)! 🍕</p>
+        <div id="conteudo-convite">
+            <h1>Meu Aniversário</h1>
+            <p>Prepare o coração (e o apetite)! 🍕</p>
 
-        <div class="info-container">
-            <div class="info-item">
-                <b>Quando será?</b>
-                <span>26 de Abril de 2026 às 19:30</span>
+            <div class="info-container">
+                <b style="color: var(--rosa-texto); font-size: 0.8rem;">QUANDO?</b><br>
+                <span>26 de Abril de 2026 às 19:30</span><br><br>
+                <b style="color: var(--rosa-texto); font-size: 0.8rem;">ONDE?</b><br>
+                <span>Divina Grill & Pizza - Gama/DF</span>
             </div>
-            <div class="info-item">
-                <b>Onde?</b>
-                <span>Divina Grill & Pizza</span>
-                <p style="font-size: 0.8rem; margin: 5px 0;">St. Leste Q 22 - Gama, Brasília - DF</p>
-                <a href="https://maps.app.goo.gl/hVPotUejDAKfULtcA" target="_blank" class="map-link">📍 Abrir no Google Maps</a>
+
+            <div style="margin-top: 25px;">
+                <h3 style="color: var(--rosa-texto);">Confirme sua Presença</h3>
+                <input type="text" id="nome" placeholder="Digite seu nome completo">
+                
+                <select id="qtd">
+                    <option value="1">Vou sozinho(a)</option>
+                    <option value="2">Vou com acompanhante (2)</option>
+                    <option value="3+">Família (3+ pessoas)</option>
+                </select>
+
+                <div class="btn-group">
+                    <button id="btnSim" class="btn-sim" onclick="enviarDados('Sim')">Vou com certeza!</button>
+                    <button id="btnNao" class="btn-nao" onclick="enviarDados('Não')">Não poderei ir</button>
+                </div>
             </div>
         </div>
 
-        <div class="form-section">
-            <h3 style="color: var(--rosa-texto); margin-bottom: 15px;">Confirme sua Presença</h3>
-            <input type="text" id="nome" placeholder="Seu nome">
-            <select id="qtd">
-                <option value="1 pessoa">Vou sozinho(a)</option>
-                <option value="2 pessoas">Vou com acompanhante (2 pessoas)</option>
-                <option value="3+ pessoas">Família (3+ pessoas)</option>
-            </select>
-            <button onclick="enviarConvite()">Confirmar no WhatsApp</button>
+        <div id="mensagem-final">
+            <h2 style="color: var(--rosa-texto); font-family: 'Dancing Script', cursive; font-size: 2.5rem;">Obrigado! ❤️</h2>
+            <p id="msg-texto">Sua confirmação foi enviada com sucesso.</p>
+            <div style="font-size: 2rem; margin-top: 15px;">🎂 ✨ 🥳</div>
         </div>
-
-        <div class="emoji-footer">🎂 🥳 🎁</div>
     </div>
 
     <script>
-        function enviarConvite() {
-            // AJUSTE SEU NÚMERO AQUI
-            const seuNumero = "5561992276709"; 
-
+        function enviarDados(status) {
             const nome = document.getElementById('nome').value;
             const qtd = document.getElementById('qtd').value;
+            const btnSim = document.getElementById('btnSim');
+            const btnNao = document.getElementById('btnNao');
 
             if (!nome) {
-                alert("Por favor, digite seu nome antes de confirmar.");
+                alert("Por favor, preencha seu nome.");
                 return;
             }
 
-            const texto = `Oi! Estou confirmando minha presença no seu aniversário no Divina Grill!%0A%0A` +
-                          `*Nome:* ${nome}%0A` +
-                          `*Quantidade:* ${qtd}`;
+            // Desabilita botões para evitar cliques duplicados
+            btnSim.disabled = true;
+            btnNao.disabled = true;
+            btnSim.innerText = "Enviando...";
 
-            window.open(`https://wa.me/${seuNumero}?text=${texto}`, '_blank');
+            const dados = {
+                Nome: nome,
+                Presenca: status,
+                Quantidade: status === 'Sim' ? qtd : '0',
+                _subject: `Confirmação de Aniversário: ${nome}`
+            };
+
+            // Envio via Formspree com o novo ID: xkoknqrl
+            fetch("https://formspree.io/f/xkoknqrl", {
+                method: "POST",
+                headers: { 
+                    "Content-Type": "application/json",
+                    "Accept": "application/json" 
+                },
+                body: JSON.stringify(dados)
+            }).then(response => {
+                if (response.ok) {
+                    document.getElementById('conteudo-convite').style.display = 'none';
+                    document.getElementById('mensagem-final').style.display = 'block';
+                    if(status === 'Não') {
+                        document.getElementById('msg-texto').innerText = "Sentiremos sua falta no dia!";
+                    }
+                } else {
+                    alert("Ocorreu um erro no servidor. Tente novamente.");
+                    btnSim.disabled = false;
+                    btnNao.disabled = false;
+                    btnSim.innerText = "Vou com certeza!";
+                }
+            }).catch(error => {
+                alert("Erro de conexão. Verifique sua internet.");
+                btnSim.disabled = false;
+                btnNao.disabled = false;
+            });
         }
     </script>
 </body>

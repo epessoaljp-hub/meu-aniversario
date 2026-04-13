@@ -30,16 +30,16 @@
         .balao {
             position: absolute;
             z-index: 1; /* Atrás do card */
-            opacity: 0.7;
+            opacity: 0.7; /* Levemente transparente */
             pointer-events: none; /* Não atrapalha cliques */
-            width: 80px; /* Tamanho do balão, ajuste se necessário */
+            width: 80px; /* Tamanho padrão, ajuste se necessário */
             height: auto;
             
-            /* Define a animação: nome, duração, tipo, repetição */
+            /* Define a animação: nome, duração padrão, tipo linear, repetição infinita */
             animation: subir 15s linear infinite;
             
             /* Começa abaixo da tela */
-            bottom: -150px; 
+            bottom: -200px; 
         }
 
         /* Define a animação de subir */
@@ -49,24 +49,36 @@
                 opacity: 0; /* Começa invisível */
             }
             10% {
-                opacity: 0.7; /* Fica visível logo após começar */
+                opacity: 0.7; /* Fica visível */
             }
             90% {
                 opacity: 0.7; /* Começa a sumir no final */
             }
             100% {
                 /* Sobe até passar o topo da tela */
-                transform: translateY(-120vh) rotate(10deg);
+                transform: translateY(-130vh) rotate(15deg);
                 opacity: 0; /* Termina invisível */
             }
         }
 
-        /* Posicionamento horizontal e atrasos diferentes para cada balão */
-        .balao-1 { left: 10%; animation-delay: 0s; width: 90px; }
-        .balao-2 { left: 30%; animation-delay: 4s; width: 70px; animation-duration: 18s; }
-        .balao-3 { left: 55%; animation-delay: 8s; width: 85px; animation-duration: 12s; }
-        .balao-4 { left: 80%; animation-delay: 2s; width: 75px; animation-duration: 20s; }
-        .balao-5 { left: 90%; animation-delay: 10s; width: 65px; }
+        /* --- Variação para cada Balão (Option 1: Minimalist/Clean) --- */
+        /* Misturando posições horizontais, tamanhos e atrasos */
+
+        /* Tipo 21.png (3 balões) */
+        .balao-21-1 { left: 10%; animation-delay: 0s; width: 90px; }
+        .balao-21-2 { left: 30%; animation-delay: 6s; width: 70px; animation-duration: 18s; }
+        .balao-21-3 { left: 55%; animation-delay: 12s; width: 85px; animation-duration: 12s; }
+
+        /* Tipo Rosa Metálico (3 balões) */
+        .balao-rosa-1 { left: 20%; animation-delay: 4s; width: 80px; }
+        .balao-rosa-2 { left: 45%; animation-delay: 10s; width: 95px; animation-duration: 14s; }
+        .balao-rosa-3 { left: 70%; animation-delay: 2s; width: 75px; animation-duration: 16s; }
+
+        /* Tipo Ouro Rosa Metálico (3 balões) */
+        .balao-ouro-1 { left: 35%; animation-delay: 8s; width: 85px; }
+        .balao-ouro-2 { left: 60%; animation-delay: 1s; width: 70px; animation-duration: 20s; }
+        .balao-ouro-3 { left: 85%; animation-delay: 14s; width: 65px; }
+
 
         /* --- Estilo do Card (Preservado) --- */
         .card {
@@ -82,29 +94,105 @@
             z-index: 10; /* Card acima de tudo */
         }
 
+        /* Enfeites de Aniversário (Preservados do original) */
         .card::before { content: '🎈'; position: absolute; top: -15px; left: 20px; font-size: 2rem; }
         .card::after { content: '✨'; position: absolute; top: -15px; right: 20px; font-size: 2rem; }
 
-        h1 { font-family: 'Dancing Script', cursive; color: var(--rosa-texto); font-size: 2.8rem; margin: 10px 0; }
-        .info-container { background: #fffafa; padding: 20px; border-radius: 15px; margin: 20px 0; border-left: 4px solid var(--rosa-detalhe); }
-        .info-item { margin-bottom: 15px; }
-        .info-item b { display: block; color: var(--rosa-texto); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
-        .info-item span { font-size: 1.1rem; font-weight: 500; }
-        .map-link { display: inline-block; margin-top: 8px; color: #5d9cec; text-decoration: none; font-size: 0.85rem; font-weight: 600; }
-        .form-section { margin-top: 25px; }
-        input, select { width: 100%; padding: 14px; margin: 8px 0; border: 1px solid #eee; border-radius: 12px; background: #fdfdfd; font-family: inherit; }
-        button { background: var(--rosa-texto); color: white; border: none; padding: 16px; width: 100%; border-radius: 12px; font-size: 1rem; font-weight: 600; cursor: pointer; margin-top: 15px; transition: 0.3s; }
-        button:hover { filter: brightness(1.1); transform: translateY(-2px); }
-        .emoji-footer { margin-top: 20px; font-size: 1.2rem; opacity: 0.7; }
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            color: var(--rosa-texto);
+            font-size: 2.8rem;
+            margin: 10px 0;
+        }
+
+        .info-container {
+            background: #fffafa;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border-left: 4px solid var(--rosa-detalhe);
+        }
+
+        .info-item {
+            margin-bottom: 15px;
+        }
+
+        .info-item b {
+            display: block;
+            color: var(--rosa-texto);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .info-item span {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .map-link {
+            display: inline-block;
+            margin-top: 8px;
+            color: #5d9cec;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .form-section {
+            margin-top: 25px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 14px;
+            margin: 8px 0;
+            border: 1px solid #eee;
+            border-radius: 12px;
+            background: #fdfdfd;
+            font-family: inherit;
+        }
+
+        button {
+            background: var(--rosa-texto);
+            color: white;
+            border: none;
+            padding: 16px;
+            width: 100%;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            filter: brightness(1.1);
+            transform: translateY(-2px);
+        }
+
+        .emoji-footer {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            opacity: 0.7;
+        }
     </style>
 </head>
 <body>
 
-    <img src="21.png" alt="Balão flutuando" class="balao balao-1">
-    <img src="21.png" alt="Balão flutuando" class="balao balao-2">
-    <img src="21.png" alt="Balão flutuando" class="balao balao-3">
-    <img src="21.png" alt="Balão flutuando" class="balao balao-4">
-    <img src="21.png" alt="Balão flutuando" class="balao balao-5">
+    <img src="21.png" alt="Balão 21 Original" class="balao balao-21-1">
+    <img src="21.png" alt="Balão 21 Original" class="balao balao-21-2">
+    <img src="21.png" alt="Balão 21 Original" class="balao balao-21-3">
+
+    <img src="balao-rosa.png" alt="Balão Rosa Metálico" class="balao balao-rosa-1">
+    <img src="balao-rosa.png" alt="Balão Rosa Metálico" class="balao balao-rosa-2">
+    <img src="balao-rosa.png" alt="Balão Rosa Metálico" class="balao balao-rosa-3">
+
+    <img src="balao-ouro.png" alt="Balão Ouro Rosa Metálico" class="balao balao-ouro-1">
+    <img src="balao-ouro.png" alt="Balão Ouro Rosa Metálico" class="balao balao-ouro-2">
+    <img src="balao-ouro.png" alt="Balão Ouro Rosa Metálico" class="balao balao-ouro-3">
+
     <div class="card">
         <h1>Meu Aniversário</h1>
         <p>Prepare o coração (e o apetite)! 🍕</p>
@@ -138,11 +226,21 @@
 
     <script>
         function enviarConvite() {
+            // AJUSTE SEU NÚMERO AQUI
             const seuNumero = "5561992276709"; 
+
             const nome = document.getElementById('nome').value;
             const qtd = document.getElementById('qtd').value;
-            if (!nome) { alert("Por favor, digite seu nome antes de confirmar."); return; }
-            const texto = `Oi! Estou confirmando minha presença no seu aniversário no Divina Grill!%0A%0A*Nome:* ${nome}%0A*Quantidade:* ${qtd}`;
+
+            if (!nome) {
+                alert("Por favor, digite seu nome antes de confirmar.");
+                return;
+            }
+
+            const texto = `Oi! Estou confirmando minha presença no seu aniversário no Divina Grill!%0A%0A` +
+                          `*Nome:* ${nome}%0A` +
+                          `*Quantidade:* ${qtd}`;
+
             window.open(`https://wa.me/${seuNumero}?text=${texto}`, '_blank');
         }
     </script>
